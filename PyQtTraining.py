@@ -3,11 +3,25 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QVBoxLayout, QHBoxLayout
 from secondscreen import second_layout
+from random import choice
 
+#create functions
 
 def changeScreen():
     #this function here is redundant as i was testing if i could manually overwrite a layout and essentially 'switch screens'
     main_window.setLayout(second_layout)
+
+def changeWord1():
+    #word should be a Qlabel
+    title_1.setText(choice(my_words))
+
+def changeWord2():
+    #word should be a Qlabel
+    title_2.setText(choice(my_words))
+
+def changeWord3():
+    #word should be a Qlabel
+    title_3.setText(choice(my_words))
 
 #App Settings
 
@@ -19,16 +33,21 @@ main_window.resize(300, 200)
 
 #Create Objects/Widgets
 
-title_text = QLabel("Pick your favourite colour")
-title_1 = QLabel("Blue")
-title_2 = QLabel("Red")
-title_3 = QLabel("Purple")
+my_words = ['purple', 'blue', 'red', 'yellow', 'green', 'orange', 'mandarin', 'broccoli']
 
-button1 = QPushButton("This one!")
-button2 = QPushButton("Its Red!")
-button3 = QPushButton("Yes it has to be this!")
+title_text = QLabel("Find a random colour")
+title_1 = QLabel('choice(my_words)')
+title_2 = QLabel('choice(my_words)')
+title_3 = QLabel('choice(my_words)')
 
-button1.clicked.connect(changeScreen)
+button1 = QPushButton("New Colour!")
+button2 = QPushButton("Spin the Wheel!")
+button3 = QPushButton("I'm addicted to the colours!")
+
+
+button1.clicked.connect(changeWord1)
+button2.clicked.connect(changeWord2)
+button3.clicked.connect(changeWord3)
 
 
 #Structure Layout
