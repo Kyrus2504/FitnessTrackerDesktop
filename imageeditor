@@ -1,0 +1,72 @@
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QVBoxLayout, QHBoxLayout, QGridLayout, QLineEdit, QComboBox, QListWidget
+from PIL import Image, ImageFilter, ImageEnhance
+
+app = QApplication([])
+main_window = QWidget()
+main_window.setWindowTitle('Image Editor')
+main_window.resize(800, 800)
+
+#Create Objects
+master_layout = QHBoxLayout()
+
+ogImage = Image.open('Element_Eighty.jfif')
+
+leftVBox = QVBoxLayout()
+
+selectFolderButton = QPushButton('Select Folder')
+
+addedImagesList = QListWidget()
+
+comboBox = QComboBox()
+
+editParameters = QVBoxLayout()
+
+comboTitles = ['Original', 'Left', 'Right', 'Mirror', 'Sharpness', 'B/W', 'Colour', 'Contrast']
+
+parameters = ['Left', 'Right', 'Mirror', 'Sharpness', 'B/W', 'Colour', 'Contrast']
+
+leftInserts = [selectFolderButton, addedImagesList, comboBox]
+
+#Object become layout :)
+for comboTitle in comboTitles:
+
+    comboBox.addItem(comboTitle)
+
+for parameter in parameters:
+
+    editParameters.addWidget(QPushButton(parameter))
+
+for leftInsert in leftInserts:
+    leftVBox.addWidget(leftInsert)
+
+leftVBox.addLayout(editParameters)
+
+master_layout.addLayout(leftVBox, 25)
+master_layout.addLayout(ogImage, 75)
+
+main_window.setLayout(master_layout)
+
+#Function!
+
+def applyFilter():
+
+    button = app.sender()
+    text = button.text()
+
+    if text == 'B/W':
+        ogImage.convert("L")
+    elif text == 'Sharpen':
+        ogImage.filter(ImageFilter.SHARPEN)
+    elif text == 'Contrast':
+        ImageEnhance.Color(ogImage).enhance(1.2)
+    elif text == 'Mirror':
+        ogImage.transpose(Image.Flip_LEFT_RIGHT)
+
+
+#Object go screen :D
+main_window.show()
+app.exec_()
+
+
+
