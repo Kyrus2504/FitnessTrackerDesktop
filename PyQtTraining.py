@@ -11,17 +11,9 @@ def changeScreen():
     #this function here is redundant as i was testing if i could manually overwrite a layout and essentially 'switch screens'
     main_window.setLayout(second_layout)
 
-def changeWord1():
+def changeWord(word):
     #word should be a Qlabel
-    title_1.setText(choice(my_words))
-
-def changeWord2():
-    #word should be a Qlabel
-    title_2.setText(choice(my_words))
-
-def changeWord3():
-    #word should be a Qlabel
-    title_3.setText(choice(my_words))
+    word.setText(choice(my_words))
 
 #App Settings
 
@@ -44,10 +36,10 @@ button1 = QPushButton("New Colour!")
 button2 = QPushButton("Spin the Wheel!")
 button3 = QPushButton("I'm addicted to the colours!")
 
-
-button1.clicked.connect(changeWord1)
-button2.clicked.connect(changeWord2)
-button3.clicked.connect(changeWord3)
+#Use lambda to be able to pass an argument through connect function
+button1.clicked.connect(lambda: changeWord(title_1))
+button2.clicked.connect(lambda: changeWord(title_2))
+button3.clicked.connect(lambda: changeWord(title_3))
 
 
 #Structure Layout
