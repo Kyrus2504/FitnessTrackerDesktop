@@ -1,6 +1,5 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QVBoxLayout, QHBoxLayout, QGridLayout, QLineEdit
-from funkies import button_click
 
 
 
@@ -102,8 +101,11 @@ master_layout.addLayout(bottomRow)
 
 
 #Use functions (this can be shortened)
+buttons = [number0, number1, number2, number3, number4, number5, number6, number7, number8, number9, operatorDiv, operatorMinus, operatorMult, operatorPlus,
+           clearButton, deleteButton, signEquals, decimal]
 
-number1.clicked.connect(button_click)
+for button in buttons:
+    button.clicked.connect(button_click)
 
 
 main_window.setLayout(master_layout)

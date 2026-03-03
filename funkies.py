@@ -2,6 +2,8 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QVBoxLayout, QHBoxLayout, QGridLayout, QLineEdit
 from calculatorapp import app, text_box
 
+#this is redundant as i was trying to import the function from this file
+
 def button_click():
 
     button = app.sender()
