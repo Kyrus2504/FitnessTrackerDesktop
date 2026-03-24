@@ -1,5 +1,6 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QFileDialog, QLabel, QPushButton, QVBoxLayout, QHBoxLayout, QGridLayout, QLineEdit, QComboBox, QListWidget
+from PyQt5.QtGui import QPixmap
 from PIL import Image, ImageFilter, ImageEnhance
 import os
 
@@ -85,6 +86,38 @@ def getWorkDirectory():
         addedImagesList.addItem(filename)
     
 selectFolderButton.clicked.connect(getWorkDirectory)
+
+#New Class time!
+
+class Editor():
+
+    def __init__(self):
+        self.image = None
+        self.original = None
+        self.filename = None
+        self.save_folder = "edits/"
+
+    def loadImage(self, filename):
+        self.filename = filename
+        fullname = os.path.join(working_directory, self.filename)
+        Image.open(fullname)
+    
+    def saveImage(self):
+        path = os.path.join(working_directory, self.save_folder)
+        if not os.path.exists(path) or os.path.isdir(path):
+            os.mkdir(path)
+        
+        fullname = os.path.join(path, self.filename)
+        self.image.save(fullname)
+    
+    def showImage(self, path):
+        ogImage.hide()
+        image = QPixmap(path)
+        w, h = ogImage.width(), ogImage.height()
+        image = image.scaled(w, h, Qt.KeepAspectRatio)
+        ogImage.setPixmap(image)
+        ogImage.show()
+
 #Object go screen :D
 main_window.show()
 app.exec_()
