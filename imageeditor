@@ -1,16 +1,20 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QVBoxLayout, QHBoxLayout, QGridLayout, QLineEdit, QComboBox, QListWidget
+from PyQt5.QtWidgets import QApplication, QWidget, QFileDialog, QLabel, QPushButton, QVBoxLayout, QHBoxLayout, QGridLayout, QLineEdit, QComboBox, QListWidget
 from PIL import Image, ImageFilter, ImageEnhance
+import os
 
 app = QApplication([])
 main_window = QWidget()
 main_window.setWindowTitle('Image Editor')
 main_window.resize(800, 800)
 
+
+
 #Create Objects
+
 master_layout = QHBoxLayout()
 
-ogImage = Image.open('Element_Eighty.jfif')
+ogImage = QLabel('Image will appear here!')
 
 leftVBox = QVBoxLayout()
 
@@ -43,7 +47,7 @@ for leftInsert in leftInserts:
 leftVBox.addLayout(editParameters)
 
 master_layout.addLayout(leftVBox, 25)
-master_layout.addLayout(ogImage, 75)
+master_layout.addWidget(ogImage, 75)
 
 main_window.setLayout(master_layout)
 
@@ -63,7 +67,24 @@ def applyFilter():
     elif text == 'Mirror':
         ogImage.transpose(Image.Flip_LEFT_RIGHT)
 
+def filter(files, extensions):
+    results = []
+    for file in files:
+        for ext in extensions:
+            if file.endswith(ext):
+                results.append(file)
+    return results
 
+def getWorkDirectory():
+    global working_directory
+    working_directory = QFileDialog.getExistingDirectory()
+    extensions = ['.jpg', '.jpeg', '.png', '.svg']
+    filenames = filter(os.listdir(working_directory), extensions)
+    addedImagesList.clear()
+    for filename in filenames:
+        addedImagesList.addItem(filename)
+    
+selectFolderButton.clicked.connect(getWorkDirectory)
 #Object go screen :D
 main_window.show()
 app.exec_()
