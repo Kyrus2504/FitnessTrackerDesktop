@@ -44,7 +44,30 @@ class FitTrack (QWidget):
         self.figure = plt.figure()
         self.canvas = FigureCanvas(self.figure)
 
+        #Design the layout
+        self.master_layout = QHBoxLayout()
+        self.columnleft = QVBoxLayout()
+        self.columnright = QVBoxLayout()
 
+        self.subrowleft1 = QHBoxLayout()
+        self.subrowleft2 = QHBoxLayout()
+        self.subrowleft3 = QHBoxLayout()
+        self.subrowleft4 = QHBoxLayout()
+
+        self.subrowleft1.addWidget(QLabel("Date:"))
+        self.subrowleft1.addWidget(self.date_box)
+
+        self.subrowleft2.addWidget(QLabel("Calories:"))
+        self.subrowleft2.addWidget(self.cal_box)
+
+        self.subrowleft3.addWidget(QLabel("Distance:"))
+        self.subrowleft3.addWidget(self.distance_box)
+
+        self.subrowleft4.addWidget(QLabel("Description:"))
+        self.subrowleft4.addWidget(self.description)
+
+        
+        
     #load tables
 
     #add tables
