@@ -73,7 +73,7 @@ class FitTrack (QWidget):
         self.columnleft.addLayout(self.subrowleft2)
         self.columnleft.addLayout(self.subrowleft3)
         self.columnleft.addLayout(self.subrowleft4)
-        self.columnleft.addLayout(self.dark_box)
+        self.columnleft.addWidget(self.dark_box)
 
 
         button_row1 = QHBoxLayout()
@@ -85,11 +85,17 @@ class FitTrack (QWidget):
         button_row2.addWidget(self.clear_button)
 
         self.columnleft.addLayout(button_row1)
-        self.columnright.addLayout(button_row2)
+        self.columnleft.addLayout(button_row2)
+
+        #Add right rows to right column
+        self.columnright.addWidget(self.canvas)
+        self.columnright.addWidget(self.table)
 
 
-
-
+        #make master layout
+        self.master_layout.addLayout(self.columnleft, 30)
+        self.master_layout.addLayout(self.columnright, 70)
+        self.setLayout(self.master_layout)
         
     #load tables
 
@@ -107,3 +113,9 @@ class FitTrack (QWidget):
 
 
 #Init DB
+
+if __name__ == "__main__":
+    app =QApplication([])
+    main = FitTrack()
+    main.show()
+    app.exec_()
