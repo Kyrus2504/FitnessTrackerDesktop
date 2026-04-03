@@ -41,6 +41,11 @@ class FitTrack (QWidget):
 
         #All right column widgets
         self.table = QTableWidget()
+        self.table.setColumnCount(5)
+        self.table.setHorizontalHeaderLabels(["Id", "Date", "Calories", "Distance", "Description"])
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+
+
 
         self.figure = plt.figure()
         self.canvas = FigureCanvas(self.figure)
