@@ -16,6 +16,7 @@ class FitTrack (QWidget):
     
     def __init__(self):
         super().__init__()
+        self.initUI()
     #initial UI
     def initUI(self):
         #All left column widgets
@@ -60,13 +61,35 @@ class FitTrack (QWidget):
         self.subrowleft2.addWidget(QLabel("Calories:"))
         self.subrowleft2.addWidget(self.cal_box)
 
-        self.subrowleft3.addWidget(QLabel("Distance:"))
+        self.subrowleft3.addWidget(QLabel("Distance (km):"))
         self.subrowleft3.addWidget(self.distance_box)
 
         self.subrowleft4.addWidget(QLabel("Description:"))
         self.subrowleft4.addWidget(self.description)
 
-        
+        #Add Left rows to the Left Column
+
+        self.columnleft.addLayout(self.subrowleft1)
+        self.columnleft.addLayout(self.subrowleft2)
+        self.columnleft.addLayout(self.subrowleft3)
+        self.columnleft.addLayout(self.subrowleft4)
+        self.columnleft.addLayout(self.dark_box)
+
+
+        button_row1 = QHBoxLayout()
+        button_row2 = QHBoxLayout()
+
+        button_row1.addWidget(self.add_button)
+        button_row1.addWidget(self.delete_button)
+        button_row2.addWidget(self.submit_button)
+        button_row2.addWidget(self.clear_button)
+
+        self.columnleft.addLayout(button_row1)
+        self.columnright.addLayout(button_row2)
+
+
+
+
         
     #load tables
 
