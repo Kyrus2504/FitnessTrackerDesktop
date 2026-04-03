@@ -124,6 +124,13 @@ class FitTrack (QWidget):
 
 
 #Init DB
+db = QSqlDatabase.addDatabase("QSQLITE")
+db.setDatabaseName("init.db")
+
+if not db.open():
+    QMessageBox.critical(None, "ERROR", "DB NO OPEN >:(")
+    exit(2)
+
 
 if __name__ == "__main__":
     app =QApplication([])
