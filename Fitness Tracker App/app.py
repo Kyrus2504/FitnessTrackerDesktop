@@ -17,6 +17,12 @@ class FitTrack (QWidget):
     def __init__(self):
         super().__init__()
         self.initUI()
+
+    #Settings
+    def settings(self):
+        self.setWindowTitle("FitTrack")
+        self.resize(800,600)
+
     #initial UI
     def initUI(self):
         #All left column widgets
