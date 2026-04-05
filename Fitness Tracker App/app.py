@@ -130,8 +130,13 @@ class FitTrack (QWidget):
             self.table.setItem(row, 4, QTableWidgetItem(description))
             row += 1
 
-
     #add tables
+    def add_workout(self):
+        date
+        calories
+        distance
+        description
+        query = QSqlQuery()
 
     #delete table
 
