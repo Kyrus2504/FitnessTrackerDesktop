@@ -131,6 +131,18 @@ if not db.open():
     QMessageBox.critical(None, "ERROR", "DB NO OPEN >:(")
     exit(2)
 
+query = QSqlQuery()
+query.exec_("""
+            CREATE TABLE IF NOT EXISTS fitness (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                date TEXT,
+                calories REAL,
+                distance REAL,
+                description TEXT
+            
+            )
+    """)
+
 
 if __name__ == "__main__":
     app =QApplication([])
