@@ -107,8 +107,29 @@ class FitTrack (QWidget):
         self.master_layout.addLayout(self.columnleft, 30)
         self.master_layout.addLayout(self.columnright, 70)
         self.setLayout(self.master_layout)
+
+        self.load_tables()
         
     #load tables
+    def load_tables(self):
+        self.table.setRowCount(0)
+        query = QSqlQuery("SELECT * FROM fitness ORDER BY date DESC")
+        row = 0
+        while query.next():
+            fit_id = query.value(0)
+            date = query.value(1)
+            calories = query.value(2)
+            distance = query.value(3)
+            description = query.value(4)
+
+            self.table.insertRow(row)
+            self.table.setItem(row, 0, QTableWidgetItem(str(fit_id)))
+            self.table.setItem(row, 1, QTableWidgetItem(date))
+            self.table.setItem(row, 2, QTableWidgetItem(str(calories)))
+            self.table.setItem(row, 3, QTableWidgetItem(str(distance)))
+            self.table.setItem(row, 4, QTableWidgetItem(description))
+            row += 1
+
 
     #add tables
 
