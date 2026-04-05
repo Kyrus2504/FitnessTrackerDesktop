@@ -113,7 +113,7 @@ class FitTrack (QWidget):
     #load tables
     def load_tables(self):
         self.table.setRowCount(0)
-        query = QSqlQuery("SELECT * FROM fitness ORDER BY date DESC")
+        query = QSqlQuery("SELECT * FROM init ORDER BY date DESC")
         row = 0
         while query.next():
             fit_id = query.value(0)
@@ -154,7 +154,7 @@ if not db.open():
 
 query = QSqlQuery()
 query.exec_("""
-            CREATE TABLE IF NOT EXISTS fitness (
+            CREATE TABLE IF NOT EXISTS init (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 date TEXT,
                 calories REAL,
