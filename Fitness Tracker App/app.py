@@ -132,10 +132,10 @@ class FitTrack (QWidget):
 
     #add tables
     def add_workout(self):
-        date
-        calories
-        distance
-        description
+        date = self.date_box.date().toString("yyyy-MM-dd")
+        calories = self.cal_box.text()
+        distance = self.distance_box.text()
+        description = self.description.text()
         query = QSqlQuery()
 
     #delete table
