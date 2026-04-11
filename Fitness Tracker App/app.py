@@ -136,7 +136,23 @@ class FitTrack (QWidget):
         calories = self.cal_box.text()
         distance = self.distance_box.text()
         description = self.description.text()
-        query = QSqlQuery()
+
+        query = QSqlQuery("""
+                            INSERT INTO fitness (date, calories, distance, description)
+                            VALUES (?,?,?,?)  
+""")
+        query.addBindValue(date)
+        query.addBindValue(calories)
+        query.addBindValue(distance)
+        query.addBindValue(description)
+        query.exec_()
+
+        self.date_box.setDate(QDate.currentDate)
+        self.cal_box.clear()
+        self.distance_box.clear()
+        self.description.clear()
+
+        self.load_tables()
 
     #delete table
 
