@@ -17,6 +17,8 @@ class FitTrack (QWidget):
     def __init__(self):
         super().__init__()
         self.initUI()
+        self.settings()
+        self.button_click()
 
     #Settings
     def settings(self):
@@ -108,10 +110,14 @@ class FitTrack (QWidget):
         self.master_layout.addLayout(self.columnright, 70)
         self.setLayout(self.master_layout)
 
-        self.load_tables()
-        
+        self.load_table()
+    
+    #Events
+    def button_click(self):
+        self.add_button.clicked.connect(self.add_workout)
+        self.delete_button.clicked.connect(self.delete_workout)
     #load tables
-    def load_tables(self):
+    def load_table(self):
         self.table.setRowCount(0)
         query = QSqlQuery("SELECT * FROM init ORDER BY date DESC")
         row = 0
@@ -129,6 +135,7 @@ class FitTrack (QWidget):
             self.table.setItem(row, 3, QTableWidgetItem(str(distance)))
             self.table.setItem(row, 4, QTableWidgetItem(description))
             row += 1
+            print("here too!")
 
     #add tables
     def add_workout(self):
@@ -138,24 +145,41 @@ class FitTrack (QWidget):
         description = self.description.text()
 
         query = QSqlQuery("""
-                            INSERT INTO fitness (date, calories, distance, description)
-                            VALUES (?,?,?,?)  
-""")
+                        INSERT INTO init (date, calories, distance, description)
+                        VALUES (?,?,?,?)  
+                        """)
         query.addBindValue(date)
         query.addBindValue(calories)
         query.addBindValue(distance)
         query.addBindValue(description)
         query.exec_()
 
-        self.date_box.setDate(QDate.currentDate)
+        self.date_box.setDate(QDate.currentDate())
         self.cal_box.clear()
         self.distance_box.clear()
         self.description.clear()
 
-        self.load_tables()
+        self.load_table()
+        print("made it here")
 
     #delete table
+    def delete_workout(self):
+        selected_row = self.table.currentRow()
 
+        if selected_row == -1:
+            QMessageBox.warning(self, "Error", "Please select a row to delete")
+
+        fit_id = int(self.table.item(selected_row, 0).text())
+        confirm = QMessageBox.question(self, "Are you sure?", "Delete this workout?", QMessageBox.Yes | QMessageBox.No)
+        if confirm == QMessageBox.No:
+            return
+        
+        query = QSqlQuery()
+        query.prepare("DELETE FROM init where id = ?")
+        query.addBindValue(fit_id)
+        query.exec_()
+
+        self.load_table()
     #Calculate calories
 
     #click
