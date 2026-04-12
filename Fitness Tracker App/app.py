@@ -19,6 +19,7 @@ class FitTrack (QWidget):
         self.initUI()
         self.settings()
         self.button_click()
+        self.apply_styles()
 
     #Settings
     def settings(self):
@@ -211,8 +212,43 @@ class FitTrack (QWidget):
             print("ERROR:{e}")
             QMessageBox.warning(self, "Error", "Please enter some data first!")
     #click
+    def apply_styles(self):
+        self.setStyleSheet("""
+    QWidget {
+            background-color: #b8c9e1;                    
+    }
+    QLabel {
+            color: #333;
+            font-size: 14px;                    
+    }
+    QLineEdit, QComboBox, QDateEdit {
+            background-color: #b8c9e1; 
+            color: #333;
+            border: 1px solid #444;
+            padding: 5px;                   
+    }
+    QTableWidget{
+            background-color: #b8c9e1; 
+            color: #333;
+            border: 1px solid #444;
+            selection-background-color: #ddd;                   
+    }
+    QPushButton{
+            background-color: #4caf50; 
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            font-size: 14px;                   
+    }
+    QPushButton:hover{
+            background-color: #4ca049;                    
+    }
 
-
+""")
+        figure_colour = "#b8c9e1"
+        self.figure.patch.set_facecolor(figure_colour)
+        self.canvas.setStyleSheet(f"background-color:{figure_colour}")
+        
     #dark mode
 
     #reset
